@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from '../../assets/logo.svg';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import {
   Container,
   Content,
   Background
 } from './style';
-
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 const SignIn: React.FC = () => {
   // const [email, setEmail] = useState('');
   // const [password, setPassword] = useState('');
@@ -22,13 +23,18 @@ const SignIn: React.FC = () => {
         <img src={logo} alt="GoBarber"/>
         <form>
           <h1>Faça seu logon</h1>
-          <input
+          <Input
+            icon={FiMail}
+            name="email"
             placeholder="E-mail"
             />
-          <input
+          <Input
+            icon={FiLock}
+            name="password"
+            type="password"
             placeholder="Senha"
             />
-            <button type="submit">Entrar</button>
+            <Button type="submit">Entrar</button>
             <a href="forgot">Esqueci minha senha</a>
         </form>
 
