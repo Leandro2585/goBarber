@@ -1,5 +1,6 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
+import AppProvider from './hooks';
+import { NavigationContainer } from '@react-navigation/native';
 import { View } from 'react-native';
 import 'react-native-gesture-handler';
 import Routes from './routes';
@@ -7,9 +8,11 @@ import Routes from './routes';
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <View style={{ flex: 1, backgroundColor: '#312e38' }}>
-        <Routes />
-      </View>
+      <AppProvider>
+        <View style={{ flex: 1, backgroundColor: '#312e38' }}>
+          <Routes />
+        </View>
+      </AppProvider>
     </NavigationContainer>
   );
 };
