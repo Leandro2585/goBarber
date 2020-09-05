@@ -96,7 +96,7 @@ const SignIn: React.FC = () => {
               autoCapitalize="none"
               keyboardType="email-address"
               name="email" 
-              icon="email" 
+              icon="mail" 
               placeholder="E-mail"
               returnKeyType="next"
               onSubmitEditing={() => {
@@ -106,7 +106,7 @@ const SignIn: React.FC = () => {
             <Input 
               ref={passwordInputRef}
               name="password" 
-              icon="pass" 
+              icon="lock" 
               placeholder="Senha"
               returnKeyType="send"
               onSubmitEditing={() => {
@@ -115,9 +115,7 @@ const SignIn: React.FC = () => {
               secureTextEntry
             />
 
-            <Button onPress={() => {
-              formRef.current?.submitForm();
-            }}>Entrar</Button>
+            <Button onPress={() => formRef.current?.submitForm()}>Entrar</Button>
           </Form>
 
           <ForgotPassword onPress={() => console.log('nada') }>
@@ -129,7 +127,7 @@ const SignIn: React.FC = () => {
 
     </KeyboardAvoidingView>
       <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
-        <Feather name="login" size={20} color="#ff9000"/>
+        <Feather name="log-in" size={20} color="#ff9000"/>
         <CreateAccountButtonText >Criar uma conta</CreateAccountButtonText>
       </CreateAccountButton>
     </>

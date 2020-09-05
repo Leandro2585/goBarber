@@ -34,4 +34,4 @@ class UsersRepository implements IUsersRepository {
   }
 }
 
-export default AppointmentsRepository;
+export default UsersRepository;

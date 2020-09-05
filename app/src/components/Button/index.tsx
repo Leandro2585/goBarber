@@ -12,7 +12,6 @@ const Button: React.FC<ButtonProps> = ({ children, ...rest }) => {
             <ButtonText>
                 {children}
             </ButtonText>
-            
         </Container>
     );
 }

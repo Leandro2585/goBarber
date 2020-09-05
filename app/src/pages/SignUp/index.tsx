@@ -110,7 +110,7 @@ const SignUp: React.FC = () => {
               autoCorrect={false}
               autoCapitalize="none"
               name="email" 
-              icon="email" 
+              icon="mail" 
               placeholder="E-mail"
               returnKeyType="next"
               onSubmitEditing={() => {
@@ -129,7 +129,7 @@ const SignUp: React.FC = () => {
             />
 
             <Button onPress={() => formRef.current?.submitForm()}>
-              Entrar
+              Cadastrar
             </Button>
           </Form>
 
