@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  positions: relative;
+  position: relative;
   span {
     background: #ff9000;
     padding: 8px;

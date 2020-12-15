@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 import AuthRoutes from './auth.routes';
 import AppRoutes from './app.routes';
+import Splash from '../pages/Splash';
 import { useAuth } from '../hooks/Auth';
 
 const Routes: React.FC = () => {
@@ -14,7 +15,7 @@ const Routes: React.FC = () => {
                 justifyContent: 'center', 
                 alignItems: 'center' 
             }}>
-                <ActivityIndicator size="large" color="#999"/>
+                <Splash/>
             </View>
         );
     }

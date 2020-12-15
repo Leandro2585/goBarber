@@ -1,4 +1,3 @@
-// import { RobotoSlab_400Regular, RobotoSlab_500Medium, useFonts } from '@expo-google-fonts/roboto-slab';
 import { RobotoSlab_400Regular, RobotoSlab_500Medium, useFonts } from '@expo-google-fonts/roboto-slab';
 import React from 'react';
 import { StatusBar } from 'react-native';
