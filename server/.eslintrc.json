@@ -21,7 +21,6 @@
   ],
   "rules": {
     "no-underscore-dangle": "off",
-    "no-plusplus": "off",
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
     "camelcase": "off",
