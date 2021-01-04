@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ListProviderMonthAvailabilityService from './ListProviderMonthAvailabilityService';
 import FakeAppointmentsRepository from '../repositories/fakes/FakeAppointmentsRepository';
 
@@ -14,12 +15,44 @@ describe('ListProviderMonthAvailability', () => {
   it('should be able to list the month availability from provider', async () => {
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
+      date: new Date(2021, 0, 1, 8, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
       date: new Date(2021, 0, 1, 9, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 10, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 11, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 12, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 13, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 14, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 15, 0, 0),
+    });
+    await fakeAppointmentsRepository.create({
+      provider_id: 'user',
+      date: new Date(2021, 0, 1, 16, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
       provider_id: 'user',
-      date: new Date(2021, 0, 1, 12, 0, 0),
+      date: new Date(2021, 0, 1, 17, 0, 0),
     });
 
     await fakeAppointmentsRepository.create({
@@ -37,7 +70,7 @@ describe('ListProviderMonthAvailability', () => {
       expect.arrayContaining([
         { day: 3, available: true },
         { day: 1, available: false },
-        { day: 2, available: false },
+        { day: 2, available: true },
         { day: 3, available: true },
       ]),
     );
