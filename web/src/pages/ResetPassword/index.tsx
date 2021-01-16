@@ -13,7 +13,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import api from '../../services/api';
 
 interface ResetPasswordFormData {
-  password: string;
+  new_password: string;
   password_confirmation: string;
 }
 
@@ -29,9 +29,9 @@ const ResetPassword: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          password: Yup.string().required('Senha obrigatória'),
+          new_password: Yup.string().required('Senha obrigatória'),
           password_confirmation: Yup.string()
-            .oneOf([Yup.ref('password'), undefined], 'Confirmação de senha incorreta')
+            .oneOf([Yup.ref('new_password'), undefined], 'Confirmação de senha incorreta')
         });
 
         await schema.validate(data, {
@@ -46,7 +46,7 @@ const ResetPassword: React.FC = () => {
         }
 
         await api.post('/password/reset', {
-          password,
+          new_password,
           password_confirmation,
           token
         });
@@ -77,7 +77,7 @@ const ResetPassword: React.FC = () => {
             <h1>Resetar senha</h1>
             <Input
               icon={FiLock}
-              name="password"
+              name="new_password"
               type="password"
               placeholder="Nova Senha"
               />
