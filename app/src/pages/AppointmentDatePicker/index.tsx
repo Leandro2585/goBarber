@@ -136,6 +136,11 @@ const AppointmentDatePicker: React.FC = () => {
       }));
   }, [availability]);
 
+  const handleChangeDatePicker = useCallback((event, date) => {
+    const currentDate = date || new Date();
+    setSelectedDate(currentDate);
+  }, []);
+
   return (
     <>
       <Header>
@@ -173,8 +178,7 @@ const AppointmentDatePicker: React.FC = () => {
             is24Hour
             display="calendar"
             value={selectedDate}
-            onChange={(e, date) => date ? setSelectedDate(date)}
-            textColor="#f4ede8"
+            onChange={handleChangeDatePicker}
             minimumDate={minimumDate}
           />
         </Calendar>
