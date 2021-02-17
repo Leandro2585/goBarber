@@ -15,7 +15,7 @@ import {
     ProviderMeta,
     ProviderMetaText
 } from './style';
-import { Feather } from '@expo/vector-icons';
+import Feather from 'react-native-vector-icons/Feather';
 import { useAuth } from '../../hooks/Auth';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';

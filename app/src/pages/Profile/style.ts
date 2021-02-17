@@ -7,6 +7,7 @@ export const Container = styled.View`
   justify-content: center;
   padding: 0 30px ${Platform.OS === 'android' ? 120 : 40 }px;
 `;
+
 export const Title = styled.Text`
   font-size: 20px;
   color: #f4ede8;
@@ -14,9 +15,11 @@ export const Title = styled.Text`
   margin: 24px 0;
   text-align: left;
 `;
+
 export const UserAvatarButton = styled.TouchableOpacity`
   margin-top: 32px;
 `;
+
 export const UserAvatar = styled.Image`
   width: 186px;
   height: 186px;

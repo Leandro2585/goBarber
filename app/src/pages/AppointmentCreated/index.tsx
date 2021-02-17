@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Feather } from '@expo/vector-icons';
+import Feather from 'react-native-vector-icons/Feather';
 import { Container, Title, Description, OkButton, OkButtonText } from './style';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';

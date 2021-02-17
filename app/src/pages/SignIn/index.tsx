@@ -5,15 +5,15 @@ import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import { useAuth } from '../../hooks/Auth';
-import { Feather } from '@expo/vector-icons';
+import Feather from 'react-native-vector-icons/Feather';
 import logoImg from '../../assets/logo.png';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import {
-  View, 
-  Image, 
-  ScrollView, 
-  KeyboardAvoidingView, 
+  View,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
   Platform,
   TextInput,
   Alert
@@ -61,31 +61,32 @@ const SignIn: React.FC = () => {
           password: data.password
         });
       } catch (err) {
+
         if(err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
           return;
         }
         Alert.alert(
-          'Erro na autenticação', 
+          'Erro na autenticação',
           'Erro ao fazer login, cheque suas credenciais'
         );
       }
   }, [signIn]);
   return (
     <>
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       enabled
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <ScrollView 
+      <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
       >
         <Container>
           <Image source={logoImg} />
-          
+
           <View>
             <Title>Faça seu logon</Title>
           </View>
@@ -95,18 +96,18 @@ const SignIn: React.FC = () => {
               autoCorrect={false}
               autoCapitalize="none"
               keyboardType="email-address"
-              name="email" 
-              icon="mail" 
+              name="email"
+              icon="mail"
               placeholder="E-mail"
               returnKeyType="next"
               onSubmitEditing={() => {
                 passwordInputRef.current?.focus();
               }}
             />
-            <Input 
+            <Input
               ref={passwordInputRef}
-              name="password" 
-              icon="lock" 
+              name="password"
+              icon="lock"
               placeholder="Senha"
               returnKeyType="send"
               onSubmitEditing={() => {
@@ -135,4 +136,3 @@ const SignIn: React.FC = () => {
 };
 
 export default SignIn;
-

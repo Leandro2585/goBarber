@@ -2,7 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { Feather } from '@expo/vector-icons';
+import Feather from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { 
@@ -114,39 +114,41 @@ const Profile: React.FC = () => {
 
       Alert.alert(
         'Erro na atualização do perfil',
-        'Ocorreu um erro ao atualizar o seu perfil, tente novamente' 
+        'Ocorreu um erro ao atualizar seu perfil, tente novamente' 
       );
     }
   }, [navigation, updateUser]);
   
   const handleUpdateAvatar = useCallback(() => {
-    ImagePicker.showImagePicker({
-      title: 'Selecione um avatar',
-      cancelButtonTitle: 'Cancelar',
-      takePhotoButtonTitle: 'Usar câmera',
-      chooseFromLibraryButtonTitle: 'Escolher da galeria',
-    }, (response) => {
-      if(response.didCancel) {
-        return;
-      }
+    
+    // ImagePicker.launchImageLibrary({
+    //   title: 'Selecione um avatar',
+    //   cancelButtonTitle: 'Cancelar',
+    //   takePhotoButtonTitle: 'Usar câmera',
+    //   chooseFromLibraryButtonTitle: 'Escolher da galeria',
+    // }, (response) => {
+    //   if(response.didCancel) {
+    //     return;
+    //   }
       
-      if (response.error) {
-        Alert.alert('Erro ao atualizar seu avatar.');
-        return;
-      }
+    //   if (response.errorCode) {
+    //     Alert.alert('Erro ao atualizar seu avatar.');
+    //     return;
+    //   }
 
-      const data = new FormData();
+    //   const data = new FormData();
 
-      data.append('avatar', {
-        type: 'image/jpg',
-        name: `${user.id}.jpg`,
-        uri: response.uri
-      });
-      api.patch('users/avatar', data).then(apiResponse => {
-        updateUser(apiResponse.data);
-      });
-    });
-  }, []);
+    //   data.append('avatar', {
+    //     type: 'image/jpg',
+    //     name: `${user.id}.jpg`,
+    //     uri: response.uri 
+    //   });
+
+    //   api.patch('users/avatar', data).then(apiResponse => {
+    //     updateUser(apiResponse.data);
+    //   });
+    // });
+  }, [updateUser, user.id]);
 
   const handleGoBack = useCallback(() => {
     navigation.goBack();
@@ -178,6 +180,7 @@ const Profile: React.FC = () => {
             ref={formRef} 
             initialData={{user}} 
             onSubmit={handleUpdateProfile}>
+            
             <Input 
               autoCapitalize="words"
               name="name" 
@@ -240,7 +243,8 @@ const Profile: React.FC = () => {
               onSubmitEditing={() => formRef.current?.submitForm()}
             />
 
-            <Button onPress={() => formRef.current?.submitForm()}>
+            <Button 
+              onPress={() => formRef.current?.submitForm()}>
               Confirmar alterações
             </Button>
           </Form>
