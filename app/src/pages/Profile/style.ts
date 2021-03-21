@@ -5,7 +5,7 @@ export const Container = styled.View`
   position: relative;
   flex: 1;
   justify-content: center;
-  padding: 0 30px ${Platform.OS === 'android' ? 120 : 40 }px;
+  padding: 0 30px ${Platform.OS === 'android' ? 80 : 40 }px;
 `;
 
 export const Title = styled.Text`
@@ -17,15 +17,16 @@ export const Title = styled.Text`
 `;
 
 export const UserAvatarButton = styled.TouchableOpacity`
-  margin-top: 32px;
+  margin-top: 0px;
 `;
 
 export const UserAvatar = styled.Image`
-  width: 186px;
-  height: 186px;
+  background: rgba(0,0,0,0.2);
+  width: 106px;
+  height: 106px;
   border-radius: 98px;
   margin-top: 64px;
-  align-self: center; 
+  align-self: center;
 `;
 
 export const BackButton = styled.TouchableOpacity`

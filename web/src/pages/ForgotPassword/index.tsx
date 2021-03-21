@@ -9,7 +9,7 @@ import Button from '../../components/Button';
 import * as Yup from 'yup';
 import { useToast } from '../../hooks/ToastContext';
 import getValidationErrors from '../../utils/getValidationErrors';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 interface ForgotPasswordFormData {
@@ -19,6 +19,7 @@ interface ForgotPasswordFormData {
 const ForgotPassword: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
+  const history = useHistory();
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
@@ -38,19 +39,17 @@ const ForgotPassword: React.FC = () => {
           abortEarly: false,
         });
 
-        // Recuperação de senha
-
         api.post('/password/forgot', {
           email: data.email
         });
-        
+
         addToast({
           type: 'success',
           title: 'E-mail de recuperação enviado',
           description: 'Enviamos um e-mail para confirmar a recuperação de senha, cheque sua caixa de entrada'
         });
 
-        // history.push('/dashboard');
+        history.push('/');
       } catch (err) {
         if(err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -65,7 +64,7 @@ const ForgotPassword: React.FC = () => {
       } finally {
         setLoading(false);
       }
-  }, [addToast]);
+  }, [addToast, history]);
   return(
     <Container>
       <Content>
@@ -78,11 +77,11 @@ const ForgotPassword: React.FC = () => {
               name="email"
               placeholder="E-mail"
               />
-            
+
             <Button loading={loading} type="submit">Recuperar</Button>
           </Form>
 
-          <Link to="/sign-in"><FiLogIn/>Voltar ao login</Link>
+          <Link to="/"><FiLogIn/>Voltar ao login</Link>
         </AnimationContainer>
       </Content>
       <Background/>

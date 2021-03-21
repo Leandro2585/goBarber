@@ -1,14 +1,14 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import Feather from 'react-native-vector-icons/Feather';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { 
+import {
   View,
-  ScrollView, 
-  KeyboardAvoidingView, 
+  ScrollView,
+  KeyboardAvoidingView,
   Platform,
   TextInput,
   Alert
@@ -20,7 +20,7 @@ import {
   UserAvatar,
   BackButton
 } from './style';
-import ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import { useAuth } from '../../hooks/Auth';
@@ -40,12 +40,23 @@ const Profile: React.FC = () => {
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
-  
+
   const emailInputRef = useRef<TextInput>(null);
   const oldPasswordInputRef = useRef<TextInput>(null);
   const newPasswordInputRef = useRef<TextInput>(null);
   const confirmPasswordInputRef = useRef<TextInput>(null);
-  
+
+  useEffect(() => {
+    (async () => {
+      if(Platform.OS !== 'web'){
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if(status !== 'granted') {
+          Alert.alert('Desculpe, nós precisamos de permissão para realizar essa função');
+        }
+      }
+    })();
+  }, []);
+
   const handleUpdateProfile = useCallback(async (data: ProfileFormData) => {
     try {
       formRef.current?.setErrors({});
@@ -81,15 +92,15 @@ const Profile: React.FC = () => {
       const {
         name,
         email,
-        old_password, 
-        new_password, 
-        password_confirmation 
+        old_password,
+        new_password,
+        password_confirmation
       } = data;
 
       const formData = {
         name,
-        email, 
-        ...(old_password 
+        email,
+        ...(old_password
           ? {
             old_password,
             new_password,
@@ -114,13 +125,25 @@ const Profile: React.FC = () => {
 
       Alert.alert(
         'Erro na atualização do perfil',
-        'Ocorreu um erro ao atualizar seu perfil, tente novamente' 
+        'Ocorreu um erro ao atualizar seu perfil, tente novamente'
       );
     }
   }, [navigation, updateUser]);
-  
-  const handleUpdateAvatar = useCallback(() => {
-    
+
+  const handleUpdateAvatar = useCallback(async () => {
+
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4,3],
+      quality: 1
+    });
+
+    if(!result.cancelled) {
+      api.patch('users/avatar', data).then(apiResponse => {
+        updateUser(apiResponse.data);
+      });
+    }
     // ImagePicker.launchImageLibrary({
     //   title: 'Selecione um avatar',
     //   cancelButtonTitle: 'Cancelar',
@@ -130,23 +153,21 @@ const Profile: React.FC = () => {
     //   if(response.didCancel) {
     //     return;
     //   }
-      
+    //
     //   if (response.errorCode) {
     //     Alert.alert('Erro ao atualizar seu avatar.');
     //     return;
     //   }
-
+    //
     //   const data = new FormData();
-
+    //
     //   data.append('avatar', {
     //     type: 'image/jpg',
     //     name: `${user.id}.jpg`,
-    //     uri: response.uri 
+    //     uri: response.uri
     //   });
 
-    //   api.patch('users/avatar', data).then(apiResponse => {
-    //     updateUser(apiResponse.data);
-    //   });
+
     // });
   }, [updateUser, user.id]);
 
@@ -156,48 +177,50 @@ const Profile: React.FC = () => {
 
   return (
     <>
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       enabled
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <ScrollView 
+      <ScrollView
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flex: 1 }}
       >
         <Container>
           <BackButton onPress={handleGoBack}>
-            <Feather name="chevron-left" size={24} color="#999591"/>
+            <Feather name="arrow-left" size={24} color="#000000"/>
           </BackButton>
-          <UserAvatarButton onPress={() => {}}>
+          <UserAvatarButton onPress={handleUpdateAvatar}>
             <UserAvatar source={{ uri: user.avatar_url }}/>
           </UserAvatarButton>
           <View>
             <Title>Meu perfil</Title>
           </View>
 
-          <Form 
-            ref={formRef} 
-            initialData={{user}} 
+          <Form
+            ref={formRef}
+            initialData={{user}}
             onSubmit={handleUpdateProfile}>
-            
-            <Input 
+
+            <Input
               autoCapitalize="words"
-              name="name" 
-              icon="user" 
+              name="name"
+              icon="user"
               placeholder="Nome"
+              value={user.name}
               returnKeyType="next"
               onSubmitEditing={() => {
                 emailInputRef.current?.focus()
               }}
             />
-            <Input 
+            <Input
               ref={emailInputRef}
               keyboardType="email-address"
               autoCorrect={false}
               autoCapitalize="none"
-              name="email" 
-              icon="mail" 
+              value={user.email}
+              name="email"
+              icon="mail"
               placeholder="E-mail"
               returnKeyType="next"
               onSubmitEditing={() => {
@@ -205,11 +228,11 @@ const Profile: React.FC = () => {
               }}
             />
 
-            <Input 
+            <Input
               ref={oldPasswordInputRef}
               secureTextEntry
-              name="old_password" 
-              icon="lock" 
+              name="old_password"
+              icon="lock"
               placeholder="Senha atual"
               containerStyle={{ marginTop: 16 }}
               textContentType="newPassword"
@@ -219,11 +242,11 @@ const Profile: React.FC = () => {
               }}
             />
 
-            <Input 
+            <Input
               ref={newPasswordInputRef}
               secureTextEntry
-              name="new_password" 
-              icon="lock" 
+              name="new_password"
+              icon="lock"
               placeholder="Nova senha"
               textContentType="newPassword"
               returnKeyType="next"
@@ -232,18 +255,18 @@ const Profile: React.FC = () => {
               }}
             />
 
-            <Input 
+            <Input
               ref={confirmPasswordInputRef}
               secureTextEntry
-              name="password_confirmation" 
-              icon="lock" 
+              name="password_confirmation"
+              icon="lock"
               placeholder="Confirmar senha"
               textContentType="newPassword"
               returnKeyType="send"
               onSubmitEditing={() => formRef.current?.submitForm()}
             />
 
-            <Button 
+            <Button
               onPress={() => formRef.current?.submitForm()}>
               Confirmar alterações
             </Button>
@@ -257,4 +280,3 @@ const Profile: React.FC = () => {
 };
 
 export default Profile;
-

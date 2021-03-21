@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 import Profile from '../pages/Profile';
 import Dashboard from '../pages/Dashboard';
 import CreateAppointment from '../pages/CreateAppointment';

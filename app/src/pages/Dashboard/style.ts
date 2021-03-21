@@ -27,7 +27,7 @@ export const HeaderTitle = styled.Text`
 export const UserName = styled.Text`
   color: #ff9000;
   font-family: 'RobotoSlab_500Medium';
-`; 
+`;
 
 export const ProfileButton = styled.TouchableOpacity``;
 
@@ -35,6 +35,7 @@ export const UserAvatar = styled.Image`
   width: 56px;
   height: 56px;
   border-radius: 28px;
+  background: rgba(0,0,0,0.2);
 `;
 
 export const ProviderList = styled(FlatList as new () => FlatList<Provider>)`
@@ -79,5 +80,5 @@ export const ProviderMeta = styled.View`
 export const ProviderMetaText = styled.Text`
   margin-left: 8px;
   color: #999591;
-  font-family: 'RobotoSlab_400Regular'; 
+  font-family: 'RobotoSlab_400Regular';
 `;
