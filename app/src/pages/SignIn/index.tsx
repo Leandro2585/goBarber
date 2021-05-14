@@ -119,7 +119,7 @@ const SignIn: React.FC = () => {
             <Button onPress={() => formRef.current?.submitForm()}>Entrar</Button>
           </Form>
 
-          <ForgotPassword onPress={() => console.log('nada') }>
+          <ForgotPassword onPress={() => navigation.navigate('SignUp') }>
             <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
           </ForgotPassword>
 

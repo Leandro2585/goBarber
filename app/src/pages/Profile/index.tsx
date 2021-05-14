@@ -1,4 +1,5 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -20,7 +21,6 @@ import {
   UserAvatar,
   BackButton
 } from './style';
-import * as ImagePicker from 'expo-image-picker';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import { useAuth } from '../../hooks/Auth';
@@ -45,17 +45,6 @@ const Profile: React.FC = () => {
   const oldPasswordInputRef = useRef<TextInput>(null);
   const newPasswordInputRef = useRef<TextInput>(null);
   const confirmPasswordInputRef = useRef<TextInput>(null);
-
-  useEffect(() => {
-    (async () => {
-      if(Platform.OS !== 'web'){
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if(status !== 'granted') {
-          Alert.alert('Desculpe, nós precisamos de permissão para realizar essa função');
-        }
-      }
-    })();
-  }, []);
 
   const handleUpdateProfile = useCallback(async (data: ProfileFormData) => {
     try {
@@ -130,46 +119,37 @@ const Profile: React.FC = () => {
     }
   }, [navigation, updateUser]);
 
-  const handleUpdateAvatar = useCallback(async () => {
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
 
+  const handleUpdateAvatar = useCallback(async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4,3],
-      quality: 1
+      aspect: [3, 3],
+      quality: 1,
     });
 
-    if(!result.cancelled) {
-      api.patch('users/avatar', data).then(apiResponse => {
-        updateUser(apiResponse.data);
+    if (!result.cancelled) {
+      const data = new FormData()
+      data.append('avatar', {
+        type: 'image/jpeg',
+        name: `${user.id}.jpeg`,
+        uri: result.uri
+      })
+      api.patch('/users/avatar', data).then(response => {
+        updateUser(response.data);
       });
     }
-    // ImagePicker.launchImageLibrary({
-    //   title: 'Selecione um avatar',
-    //   cancelButtonTitle: 'Cancelar',
-    //   takePhotoButtonTitle: 'Usar câmera',
-    //   chooseFromLibraryButtonTitle: 'Escolher da galeria',
-    // }, (response) => {
-    //   if(response.didCancel) {
-    //     return;
-    //   }
-    //
-    //   if (response.errorCode) {
-    //     Alert.alert('Erro ao atualizar seu avatar.');
-    //     return;
-    //   }
-    //
-    //   const data = new FormData();
-    //
-    //   data.append('avatar', {
-    //     type: 'image/jpg',
-    //     name: `${user.id}.jpg`,
-    //     uri: response.uri
-    //   });
-
-
-    // });
-  }, [updateUser, user.id]);
+  }, [user.id, updateUser]);
 
   const handleGoBack = useCallback(() => {
     navigation.goBack();
@@ -188,7 +168,7 @@ const Profile: React.FC = () => {
       >
         <Container>
           <BackButton onPress={handleGoBack}>
-            <Feather name="arrow-left" size={24} color="#000000"/>
+            <Feather name="chevron-left" size={24} color="#999591"/>
           </BackButton>
           <UserAvatarButton onPress={handleUpdateAvatar}>
             <UserAvatar source={{ uri: user.avatar_url }}/>

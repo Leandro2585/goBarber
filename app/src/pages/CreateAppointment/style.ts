@@ -23,7 +23,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   padding: 24px;
-  padding-top: ${getStatusBarHeight() + 24}px;
+  padding-top: ${getStatusBarHeight()}px;
   background: #28262e;
   flex-direction: row;
   justify-content: space-between;
@@ -37,6 +37,8 @@ export const HeaderTitle = styled.Text`
   font-family: 'RobotoSlab_500Medium';
   font-size: 20px;
   margin-left: 16px;
+`;
+export const UserAvatarButton = styled.TouchableOpacity`
 `;
 
 export const UserAvatar = styled.Image`
@@ -53,7 +55,7 @@ export const ProvidersListContainer = styled.View`
 `;
 
 export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
-  padding: 32px 24px;
+  padding: 32px 16px;
 `;
 
 export const ProviderContainer = styled(RectButton)<ProviderContainerProps>`

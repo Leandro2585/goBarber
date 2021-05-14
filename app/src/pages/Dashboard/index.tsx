@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { 
-    Container, 
-    Header, 
-    HeaderTitle, 
-    UserName, 
-    ProfileButton, 
+import {
+    Container,
+    Header,
+    HeaderTitle,
+    UserName,
+    ProfileButton,
     UserAvatar,
     ProviderList,
     ProviderListTitle,
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
             setProviders(response.data);
         });
     }, []);
-    
+
     const navigateToProfile = useCallback(() => {
         navigate('Profile');
     }, [navigate]);
@@ -49,6 +49,9 @@ const Dashboard: React.FC = () => {
     return(
         <Container>
             <Header>
+                <ProfileButton onPress={signOut}>
+                  <Feather name="power" color="#999591" size={24}/>
+                </ProfileButton >
                 <HeaderTitle>
                     Bem vindo, {"\n"}
                     <UserName>{user.name}</UserName>
@@ -61,6 +64,7 @@ const Dashboard: React.FC = () => {
 
             <ProviderList
                 data={providers}
+                contentContainerStyle={{flexGrow: 1, paddingBottom: 32 }}
                 keyExtractor={(provider) => provider.id}
                 ListHeaderComponent={
                     <ProviderListTitle>Cabeleireiros</ProviderListTitle>

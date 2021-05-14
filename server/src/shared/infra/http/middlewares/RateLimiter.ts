@@ -16,14 +16,9 @@ const limiter = new RateLimiterRedis({
   duration: 1,
 });
 
-export default async function rateLimiter(
-  request: Request,
-  response: Response,
-  next: NextFunction,
-): Promise<void> {
+export const rateLimiter = async (request: Request, response: Response, next: NextFunction ): Promise<void> => {
   try {
     await limiter.consume(request.ip);
-
     return next();
   } catch (err) {
     throw new AppError('Too many requests', 429);
