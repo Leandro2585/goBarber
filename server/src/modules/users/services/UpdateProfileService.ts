@@ -4,13 +4,13 @@ import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
 
-interface IRequest {
+type IRequest = {
   user_id: string;
   name: string;
   email: string;
   old_password?: string;
   new_password?: string;
-}
+};
 
 @injectable()
 class UpdateProfileService {

@@ -5,11 +5,11 @@ import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
-interface IRequest {
+type IRequest = {
   name: string;
   email: string;
   password: string;
-}
+};
 
 @injectable()
 class CreateUserService {

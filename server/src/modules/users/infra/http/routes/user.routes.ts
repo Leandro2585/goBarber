@@ -22,6 +22,25 @@ usersRouter.post(
   }),
   usersController.create,
 );
+
+usersRouter.post(
+  '/provider',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+      city: Joi.string().required(),
+      district: Joi.string().required(),
+      number: Joi.number().required(),
+      whatsapp: Joi.number().required(),
+      work_routine: Joi.string().required(),
+      opening_hours: Joi.string().required(),
+    },
+  }),
+  usersController.create,
+);
+
 usersRouter.patch(
   '/avatar',
   ensureAuthenticated,

@@ -5,10 +5,10 @@ import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IUserTokensRepository from '../repositories/IUserTokensRepository';
 
-interface IRequest {
+type IRequest = {
   token: string;
   password: string;
-}
+};
 
 @injectable()
 class ResetPasswordService {

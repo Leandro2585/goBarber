@@ -1,4 +1,4 @@
-export default interface ICreateNotificationDTO {
+export type ICreateNotificationDTO = {
   content: string;
   recipient_id: string;
-}
+};

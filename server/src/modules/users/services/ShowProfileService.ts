@@ -3,9 +3,9 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 import User from '../infra/typeorm/entities/User';
 
-interface IRequest {
+type IRequest = {
   user_id: string;
-}
+};
 
 @injectable()
 class ShowProfileService {

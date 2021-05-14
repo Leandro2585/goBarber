@@ -4,10 +4,10 @@ import IStorageProvider from '@shared/container/providers/StorageProvider/models
 import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
-interface IRequest {
+type IRequest = {
   user_id: string;
   avatarFilename: string;
-}
+};
 
 @injectable()
 class UpdateUserAvatarService {
