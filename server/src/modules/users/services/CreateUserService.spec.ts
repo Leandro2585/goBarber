@@ -38,10 +38,12 @@ describe('CreateUser Service', () => {
       password: '123456',
     });
 
-    await expect({
+    const error = createUser.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
-    }).rejects.toBeInstanceOf(AppError);
+    });
+
+    await expect(error).rejects.toBeInstanceOf(AppError);
   });
 });

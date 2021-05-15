@@ -60,7 +60,7 @@ describe('UpdateProfile Service', () => {
       updateProfile.execute({
         user_id: user.id,
         name: 'John Doe',
-        email: 'johndow@example.com',
+        email: 'johndoe@example.com',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -72,6 +72,9 @@ describe('UpdateProfile Service', () => {
       password: '123456',
     });
 
+    jest
+      .spyOn(fakeHashProvider, 'generateHash')
+      .mockReturnValueOnce(Promise.resolve('hashed_new_password'));
     const updateUser = await updateProfile.execute({
       user_id: user.id,
       name: 'John Trê',
@@ -80,7 +83,7 @@ describe('UpdateProfile Service', () => {
       new_password: '123123',
     });
 
-    expect(updateUser.password).toBe('123123');
+    expect(updateUser.password).toBe('hashed_new_password');
   });
 
   it('should not be able to update the password without old password', async () => {

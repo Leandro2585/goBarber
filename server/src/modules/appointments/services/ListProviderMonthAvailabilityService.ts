@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { getDate, getDaysInMonth, isAfter } from 'date-fns';
 import { inject, injectable } from 'tsyringe';
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';

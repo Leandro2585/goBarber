@@ -32,8 +32,9 @@ describe('ResetPassword Service', () => {
 
     const { token } = await fakeUserTokensRepository.generate(user.id);
 
-    const generateHash = jest.spyOn(fakeHashProvider, 'generateHash');
-
+    const generateHash = jest
+      .spyOn(fakeHashProvider, 'generateHash')
+      .mockReturnValueOnce(Promise.resolve('hashed_password'));
     await resetPassword.execute({
       password: '123123',
       token,
@@ -41,7 +42,7 @@ describe('ResetPassword Service', () => {
     const updatedUser = await fakeUsersRepository.findById(user.id);
 
     expect(generateHash).toHaveBeenCalledWith('123123');
-    expect(updatedUser?.password).toBe('123123');
+    expect(updatedUser?.password).toBe('hashed_password');
   });
 
   it('should not be able to reset the password with non-existing token', async () => {

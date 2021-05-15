@@ -1,4 +1,4 @@
-import ICreateProviderDTO from '@modules/users/dtos/ICreateProviderDTO';
+import { ICreateProviderDTO } from '@modules/users/dtos/ICreateProviderDTO';
 import Provider from '@modules/users/infra/typeorm/entities/Provider';
 import IProvidersRepository from '@modules/users/repositories/IProvidersRepository';
 

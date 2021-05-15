@@ -1,4 +1,3 @@
-import fs from 'fs';
 import IStorageProvider from '../models/IStorageProvider';
 
 class FakeStorageProvider implements IStorageProvider {
@@ -17,4 +16,4 @@ class FakeStorageProvider implements IStorageProvider {
     this.storage.splice(findIndex, 1);
   }
 }
-export default DiskStorageProvider;
+export default FakeStorageProvider;
