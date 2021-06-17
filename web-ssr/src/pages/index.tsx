@@ -1,5 +1,11 @@
-export default function Home() {
+import { Header } from '../components/Header';
+
+const Home: React.FC = () => {
   return (
-    <h1>Ola Mundo</h1>
+    <div>
+      <Header/>
+    </div>
   )
 }
+
+export default Home;
