@@ -10,7 +10,7 @@ import ForgotPassword from '../pages/ForgotPassword';
 
 const Routes: React.FC = () => (
     <Switch>
-      <Route exact path="/" component={SignIn}/>
+      <Route path="/login" component={SignIn}/>
       <Route path="/signup" component={SignUp}/>
       <Route path="/forgot-password" component={ForgotPassword}/>
       <Route path="/reset-password" component={ResetPassword}/>

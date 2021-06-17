@@ -69,7 +69,7 @@ const ForgotPassword: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <img src={logo} alt="GoBarber"/>
+          <img src={logo} alt="BarberApp"/>
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Recuperar senha</h1>
             <Input
@@ -81,7 +81,7 @@ const ForgotPassword: React.FC = () => {
             <Button loading={loading} type="submit">Recuperar</Button>
           </Form>
 
-          <Link to="/"><FiLogIn/>Voltar ao login</Link>
+          <Link to="/login"><FiLogIn/>Voltar ao login</Link>
         </AnimationContainer>
       </Content>
       <Background/>

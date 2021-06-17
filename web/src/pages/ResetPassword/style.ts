@@ -12,7 +12,7 @@ export const Content = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 720px;
 `;
 export const Background = styled.div`
   flex: 1;
