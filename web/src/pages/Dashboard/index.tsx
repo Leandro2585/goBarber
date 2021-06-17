@@ -6,15 +6,15 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { useAuth } from  '../../hooks/AuthContext';
 import { FiClock, FiPower } from 'react-icons/fi';
 import logoImg from '../../assets/logo.svg';
-import { 
-  Container, 
-  Header, 
-  HeaderContent, 
-  Profile, Content, 
-  Schedule, Calendar, 
+import {
+  Container,
+  Header,
+  HeaderContent,
+  Profile, Content,
+  Schedule, Calendar,
   NextAppointment,
   Section,
-  Appointment 
+  Appointment
 } from './style';
 import 'react-day-picker/lib/style.css';
 import api from '../../services/api';
@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
         }
       });
       setAppointments(appointmentsFormated);
-    
+
     });
   }, [selectedDate]);
 
@@ -118,13 +118,13 @@ const Dashboard: React.FC = () => {
       return parseISO(appointment.date).getHours() >= 12;
     });
   }, [appointments]);
-  
+
   const nextAppointment = useMemo(() => {
     return appointments.find(appointment => {
       isAfter(parseISO(appointment.date), new Date());
     })
   }, [appointments]);
-  
+
   return(
     <Container>
       <Header>
@@ -160,7 +160,7 @@ const Dashboard: React.FC = () => {
             <NextAppointment>
               <strong>Agendamento a seguir</strong>
               <div>
-                <img 
+                <img
                   src={nextAppointment.user.avatar_url}
                   alt={nextAppointment.user.name}
                 />
