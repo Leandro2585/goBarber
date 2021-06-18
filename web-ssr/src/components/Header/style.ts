@@ -1,35 +1,45 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  height: 144px;
+  height: 12vh;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   background-color: ${({ theme }) => theme.colors.backgroundDark};
   nav {
+    height: 12vh;
+    width: 30vw;
     ul {
       list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
       li {
-        height: 100%;
-        padding: 2rem;
-        font-size: 1.3rem;
-        width: 10rem;
-        display: inline-block;
+        position: relative;
+        font-size: 1.2rem;
         cursor: pointer;
+        display: inline-block;
+        padding-top: 4vh;
         text-align: center;
-        &:hover::before {
+        width: 10rem;
+        height: 100%;
+        ::before {
           content: '';
           position: absolute;
-          top: 0;
-          transform: translateX(-1.5rem);
-          height: 10px;
-          width: 100px;
-          align-self: center;
+          width: 0%;
+          transition: width 0.2s;
+          height: 8px;
+          bottom: 0;
+          left:0;
           background: ${({ theme }) => theme.colors.text};
-          border-radius: 0px 0px 64px 64px;
+          border-radius: 6px 6px 0px 0px;
+        }
+        :hover::before{
+          width: 100%;
         }
       }
     }
   }
-`;
+`
