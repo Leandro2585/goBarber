@@ -8,7 +8,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background: ${(props) => props.theme.colors.background};
+    background: ${(props) => props.theme.colors.backgroundDark};
     color: ${(props) => props.theme.colors.text};
     font: 400 16px 'Roboto Slab', sans-serif;
   }
@@ -18,7 +18,7 @@ export default createGlobalStyle`
     color: ${({ theme }) => theme.colors.background};
     border-radius: 8px;
     font-weight: bold;
-    width: 386px;
+    width: 384px;
     height: 82px;
     font-size: 1.75rem;
     :hover {
